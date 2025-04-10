@@ -1,0 +1,1 @@
+// Emotional bot quote rotation
