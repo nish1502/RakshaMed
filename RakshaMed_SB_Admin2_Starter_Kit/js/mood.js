@@ -1,1 +1,0 @@
-// Mood form submission and Chart.js logic
