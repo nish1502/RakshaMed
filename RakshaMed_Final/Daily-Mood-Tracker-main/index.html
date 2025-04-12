@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="Mood-Logger-Section">
+        <div class="btns">
+            <button class="mood-btns" id="😄">😄</button>
+            <button class="mood-btns" id="😞">😞</button>
+            <button class="mood-btns" id="😐">😐</button>
+            <button class="mood-btns" id="🤩">🤩</button>
+            <button class="mood-btns" id="😠">😠</button>
+        </div>
+
+        <div class="calendar-section">
+            <label for="calendar-box">Calendar:</label>
+            <input type="date" id="calendar-box">
+        </div>
+        <button id="save-mood-btn">Save</button>
+    </div>
+    
+    <div class="viewing-section">
+        <div class="view-box">
+            <label for="view">Choose what to view</label>    
+            <select name="view" id="view">
+                <option value="Week">Week</option>
+                <option value="Month">Month</option>
+                <option value="Year">Year</option>
+            </select>
+        </div>
+        <button id="show">Show</button>
+    </div>
+
+    <div id = "moods" class="week-mood"></div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
