@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call Logs - RakshaMed</title>
+
+  <!-- Fonts & Styles -->
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
+    rel="stylesheet"
+  />
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">RakshaMed</div>
+      </a>
+
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+        <a class="nav-link" href="video-call.html">
+          <i class="fas fa-video"></i>
+          <span>Video Call</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="call-logs.html">
+          <i class="fas fa-history"></i>
+          <span>Call Logs</span></a>
+      </li>
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+          <h1 class="h3 text-gray-800 ml-3">📋 Call Logs</h1>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Recent Video Calls</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="logsTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Participant</th>
+                      <th>Room Name</th>
+                      <th>Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody id="logBody">
+                    <!-- Logs will load here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>© RakshaMed 2025</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../js/sb-admin-2.min.js"></script>
+
+  <!-- Fetch Logs -->
+  <script>
+    async function fetchLogs() {
+      const res = await fetch("http://localhost:5000/api/call/logs");
+      const data = await res.json();
+      const tbody = document.getElementById("logBody");
+
+      data.forEach((log, index) => {
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${log.participant}</td>
+            <td>${log.roomName}</td>
+            <td>${new Date(log.timestamp).toLocaleString()}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    fetchLogs();
+  </script>
+</body>
+
+</html>

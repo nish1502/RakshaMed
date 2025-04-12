@@ -36,7 +36,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" id="registerForm">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
@@ -61,17 +61,18 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
+                                </button>
                                 <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
+                                <button type="button" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                </button>
+                                <button type="button" class="btn btn-facebook btn-user btn-block">
                                     <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+                                </button>
                             </form>
+                            
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -96,6 +97,29 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const firstName = document.getElementById('exampleFirstName').value.trim();
+            const lastName = document.getElementById('exampleLastName').value.trim();
+            const email = document.getElementById('exampleInputEmail').value.trim();
+            const password = document.getElementById('exampleInputPassword').value.trim();
+            const repeatPassword = document.getElementById('exampleRepeatPassword').value.trim();
+    
+            if (!firstName || !lastName || !email || !password || !repeatPassword) {
+                alert("Please fill in all fields.");
+            } else if (password !== repeatPassword) {
+                alert("Passwords do not match.");
+            } else {
+                // Redirect to login or dashboard after successful (fake) registration
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+    
+    
 
 </body>
 
