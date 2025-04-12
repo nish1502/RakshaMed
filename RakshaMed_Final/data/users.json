@@ -1,0 +1,18 @@
+[
+    {
+      "name": "Grandma",
+      "profile": "👵",
+      "medications": [
+        { "name": "Paracetamol", "time": "8:00 AM", "taken": false },
+        { "name": "Insulin", "time": "6:00 PM", "taken": true }
+      ]
+    },
+    {
+      "name": "Dad",
+      "profile": "👨‍🦳",
+      "medications": [
+        { "name": "Atorvastatin", "time": "9:00 PM", "taken": false }
+      ]
+    }
+  ]
+  

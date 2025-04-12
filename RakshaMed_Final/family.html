@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RakshaMed | Family Dashboard</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  <style>
+    .log-table td, .log-table th {
+      font-size: 0.85rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">RakshaMed</div>
+      </a>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><i class="fas fa-fw fa-users"></i><span>Family Dashboard</span></a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid mt-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3 text-gray-800">Family Dashboard</h1>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">➕ Add New User</button>
+          </div>
+
+          <!-- Report Filters -->
+          <div class="mb-3">
+            <button class="btn btn-success" id="weeklyReportBtn">Weekly Report</button>
+            <button class="btn btn-primary" id="monthlyReportBtn">Monthly Report</button>
+            <button class="btn btn-info" id="yearlyReportBtn">Yearly Report</button>
+            <button class="btn btn-warning" id="downloadCSVBtn">Download CSV</button>
+            <button class="btn btn-danger" id="downloadPDFBtn">Download PDF</button>
+          </div>
+
+          <div class="alert alert-danger d-none" id="alertBox"></div>
+
+          <input type="text" class="form-control mb-3" id="searchInput" placeholder="Search user by name..." />
+
+          <div id="familyContainer" class="row"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addUserForm">
+          <div class="modal-header"><h5 class="modal-title">Add New User</h5></div>
+          <div class="modal-body">
+            <input type="text" class="form-control mb-2" id="userName" placeholder="User Name" required />
+            <input type="text" class="form-control mb-2" id="medName" placeholder="First Medication" required />
+            <input type="text" class="form-control mb-2" id="medTime" placeholder="Time (e.g. 8:00 AM)" required />
+            <input type="number" class="form-control mb-2" id="medQty" placeholder="Quantity (e.g. 30)" required />
+            <input type="number" class="form-control mb-2" id="medFreq" placeholder="Doses Per Day (e.g. 1, 2)" required />
+            <textarea class="form-control mb-2" id="caretakers" placeholder="Caretakers (comma separated)"></textarea>
+            <div class="form-check">
+              <input type="checkbox" id="isPrimary" class="form-check-input" />
+              <label class="form-check-label" for="isPrimary">Primary Account</label>
+            </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-primary" type="submit">Save</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="editUserForm">
+          <div class="modal-header"><h5 class="modal-title">Edit User</h5></div>
+          <div class="modal-body">
+            <input type="text" class="form-control mb-2" id="editUserName" placeholder="User Name" required />
+            <input type="text" class="form-control mb-2" id="editMedName" placeholder="Medication Name" required />
+            <input type="text" class="form-control mb-2" id="editMedTime" placeholder="Time (e.g. 8:00 AM)" required />
+            <input type="number" class="form-control mb-2" id="editMedQty" placeholder="Quantity (e.g. 30)" required />
+            <input type="number" class="form-control mb-2" id="editMedFreq" placeholder="Doses Per Day (e.g. 1, 2)" required />
+            <textarea class="form-control mb-2" id="editCaretakers" placeholder="Caretakers (comma separated)"></textarea>
+            <div class="form-check">
+              <input type="checkbox" id="editIsPrimary" class="form-check-input" />
+              <label class="form-check-label" for="editIsPrimary">Primary Account</label>
+            </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-primary" type="submit">Save Changes</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+  <script src="js/family.js"></script>
+
+
+</body>
+</html>
