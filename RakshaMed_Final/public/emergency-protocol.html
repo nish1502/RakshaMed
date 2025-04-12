@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rakshamed - Emergency Protocol</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f44336;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #fdd;
+    }
+    button {
+      padding: 5px 10px;
+    }
+    button {
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  button:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+  </style>
+</head>
+<body>
+  <h2>📋 Medication Scheduler</h2>
+  <form id="medForm">
+    <input type="text" id="name" placeholder="Medication Name" required />
+    <input type="time" id="time" required />
+    <label>
+      <input type="checkbox" id="isCritical" /> Critical Dose
+    </label>
+    <button type="submit">Add Medication</button>
+  </form>
+
+  <h3>🚨 Emergency Alerts</h3>
+  <table id="alertTable">
+    <thead>
+      <tr>
+        <th>Medication</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <audio id="alarm" src="alarm.mp3" preload="auto" loop></audio>
+
+  <script src="emergency-backend.js"></script>
+  <script src="emergency-frontend.js"></script>
+</body>
+</html>
