@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Raksha - Emotional Support Chatbot</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    #chatbox {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🧓 Raksha Support Chatbot</h2>
+  <p>How are you feeling today?</p>
+
+  <input type="text" id="message" placeholder="Type your thoughts..." style="width: 70%;" />
+  <button onclick="sendMessage()">Send</button>
+
+  <div id="chatbox"></div>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const messageInput = document.getElementById("message");
+
+    async function sendMessage() {
+      const userMessage = messageInput.value.trim();
+      if (!userMessage) return;
+
+      chatbox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+      messageInput.value = "";
+
+      try {
+        const response = await fetch("http://localhost:3001/api/support-bot", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        });
+
+        const data = await response.json();
+        chatbox.innerHTML += `<p><strong>Raksha:</strong> ${data.reply}</p>`;
+      } catch (error) {
+        chatbox.innerHTML += `<p><strong>Raksha:</strong> Sorry, I'm having trouble responding right now.</p>`;
+        console.error("Frontend error:", error);
+      }
+    }
+  </script>
+</body>
+</html>
