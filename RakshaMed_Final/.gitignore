@@ -1,0 +1,11 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore package-lock.json and package.json from parent directory
+../package-lock.json
+../package.json
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
