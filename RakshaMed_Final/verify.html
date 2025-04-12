@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RakshaMed | Verify Medicine</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  <style>
+    .result-card {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">RakshaMed</div>
+      </a>
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+      <li class="nav-item active"><a class="nav-link" href="verify.html"><i class="fas fa-fw fa-search"></i> Verify Medicine</a></li>
+    </ul>
+
+    <!-- Page Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid mt-4">
+          <h1 class="h3 text-gray-800 mb-4">🔍 Verify Medicine</h1>
+
+          <div class="form-group">
+            <label for="medName">Enter Medicine Name:</label>
+            <input type="text" class="form-control" id="medName" placeholder="e.g., Dolo 650, Paracetamol" />
+            <button class="btn btn-primary mt-3" onclick="searchMedicine()">Search</button>
+          </div>
+
+          <div id="resultContainer" class="result-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RakshaMed | Nearby Health Services</title>
+
+  <!-- SB Admin CSS -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  <style>
+    .card {
+      min-width: 250px;
+    }
+  </style>
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">RakshaMed</div>
+      </a>
+
+      <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+      <li class="nav-item active"><a class="nav-link" href="nearby.html"><i class="fas fa-fw fa-map-marker-alt"></i> Nearby</a></li>
+    </ul>
+
+    <!-- Main Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid mt-4">
+          <h1 class="h3 text-gray-800 mb-4">Nearby Health Services</h1>
+
+          <!-- Test Location Toggle -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="testLocationToggle">
+            <label class="form-check-label" for="testLocationToggle">
+              🧪 Use test location (Navi Mumbai)
+            </label>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-outline-primary mr-2" onclick="getNearbyPlaces('hospital')">🏥 Find Hospitals</button>
+            <button class="btn btn-outline-success mr-2" onclick="getNearbyPlaces('doctor')">👨‍⚕️ Find Doctors</button>
+            <button class="btn btn-outline-info" onclick="getNearbyPlaces('pharmacy')">💊 Find Pharmacies</button>
+          </div>
+
+          <div id="locationStatus" class="text-muted mb-3">Click a button to fetch nearby results.</div>
+          <div class="row" id="nearbyContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Logic -->
+  <script>
+    function getNearbyPlaces(type) {
+      const status = document.getElementById("locationStatus");
+      const container = document.getElementById("nearbyContainer");
+      const useTest = document.getElementById("testLocationToggle").checked;
+
+      container.innerHTML = "";
+
+      if (useTest) {
+        const lat = 19.0330;
+        const lon = 73.0297;
+        status.innerText = `🧪 Using test location for ${type}s near Navi Mumbai`;
+        fetchNearbyFromNominatim(type, lat, lon);
+        return;
+      }
+
+      status.innerText = "⏳ Getting your real location...";
+
+      if (!navigator.geolocation) {
+        status.innerText = "❌ Geolocation not supported in this browser.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          status.innerText = `📍 Found your location. Searching for ${type}s...`;
+          fetchNearbyFromNominatim(type, lat, lon);
+        },
+        () => {
+          status.innerText = "⚠️ Location access denied. Try using test location toggle.";
+        }
+      );
+    }
+
+    function fetchNearbyFromNominatim(type, lat, lon) {
+      const container = document.getElementById("nearbyContainer");
+
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${type}+near+${lat},${lon}&limit=6`;
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.length === 0) {
+            container.innerHTML = "<p class='text-muted'>No nearby places found.</p>";
+            return;
+          }
+
+          data.forEach((place) => {
+            const card = document.createElement("div");
+            card.className = "col-md-4 mb-4";
+            const mapLink = `https://www.openstreetmap.org/?mlat=${place.lat}&mlon=${place.lon}`;
+
+            card.innerHTML = `
+              <div class="card shadow h-100">
+                <div class="card-body">
+                  <h5 class="card-title">${place.display_name.split(",")[0]}</h5>
+                  <p class="card-text"><small>${place.display_name}</small></p>
+                  <a href="${mapLink}" target="_blank" class="btn btn-sm btn-primary">View on Map</a>
+                </div>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(() => {
+          container.innerHTML = "<p class='text-danger'>❌ Failed to load data from Nominatim.</p>";
+        });
+    }
+  </script>
+
+  <!-- SB Admin JS -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
+</body>
+</html>

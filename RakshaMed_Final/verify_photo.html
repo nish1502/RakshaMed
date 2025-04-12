@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verify Medicine by Photo | RakshaMed</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+</head>
+<body class="p-4">
+  <h1 class="h3 mb-4">📷 Verify Medicine from Photo</h1>
+
+  <input type="file" accept="image/*" id="medImage" />
+  <button class="btn btn-primary mt-3" onclick="handleImage()">Scan Image</button>
+
+  <div id="ocrText" class="mt-3 text-muted small"></div>
+  <div id="resultContainer" class="mt-4"></div>
+
+  <script src="js/verify_photo.js"></script>
+</body>
+</html>
