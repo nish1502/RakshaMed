@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Video Call Page" />
+  <meta name="author" content="RakshaMed" />
+  <title>RakshaMed - Video Call</title>
+
+  <!-- SB Admin 2 CSS -->
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-video"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">RakshaMed</div>
+      </a>
+      <hr class="sidebar-divider my-0" />
+      <li class="nav-item active">
+        <a class="nav-link" href="video-call.html">
+          <i class="fas fa-video"></i>
+          <span>Video Call</span>
+        </a>
+      </li>
+    </ul>
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          <span class="font-weight-bold">Live Video Consultation</span>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <h1 class="h3 mb-4 text-gray-800">📹 Join Secure Video Room</h1>
+
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div id="jitsi-container" style="height: 500px; width: 100%; border-radius: 10px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>© RakshaMed 2025</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Scroll to Top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../js/sb-admin-2.min.js"></script>
+
+  <!-- Jitsi Embed Script -->
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <script>
+    window.onload = () => {
+      const roomName = "RakshaMed_Room_" + Date.now();
+      const participant = prompt("Enter your name for the call log");
+
+      // ✅ Create Jitsi meeting
+      const api = new JitsiMeetExternalAPI("meet.jit.si", {
+        roomName,
+        width: "100%",
+        height: 500,
+        parentNode: document.querySelector('#jitsi-container'),
+        configOverwrite: {
+          disableDeepLinking: true
+        },
+        interfaceConfigOverwrite: {
+          SHOW_JITSI_WATERMARK: false,
+          SHOW_WATERMARK_FOR_GUESTS: false,
+        }
+      });
+
+      // ✅ Save call log to backend
+      fetch('http://localhost:5000/api/call/log', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          roomName: roomName,
+          participant: participant || "Anonymous"
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("✔️ Call log saved:", data.message);
+        })
+        .catch(err => {
+          console.error("❌ Failed to save call log", err);
+        });
+    };
+  </script>
+</body>
+
+</html>
